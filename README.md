@@ -19,4 +19,4 @@ server.ssl.key-alias=medium
 server.port=8443
 ## Step 3: Testing the API
 We have added the TLS configuration in Spring boot and the application is ready to run in HTTPS. Open Postman/Browser and hit the below URL:
-https://localhost:8443/v1/books/1
+https://localhost:8100/
