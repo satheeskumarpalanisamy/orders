@@ -4,6 +4,10 @@ import com.example.orders.exception.UserFoundException;
 import com.example.orders.model.Order;
 import com.example.orders.model.Product;
 import com.example.orders.service.OrderRespository;
+import com.example.orders.service.ProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,6 +28,9 @@ public class OrderController {
 
     @Autowired
     private OrderRespository orderRespository;
+
+    @Autowired
+    private ProductService postService;
 
     @GetMapping("/orders/{orderNumber}")
     public Optional<Order> geOrderDetails(@PathVariable int orderNumber) {
@@ -38,28 +46,26 @@ public class OrderController {
             throw new UserFoundException("Order ID:"+ order.getOrderId());
         }
 
-        RestTemplate restTemplate = new RestTemplate();
+        Product[] productList = postService.getProducts();
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28iLCJleHAiOjE2MTQ4ODg5NjUsImlhdCI6MTYxNDYzMzg2Nn0.N-H8e_e-ZUYW46lceOONnmK8wlgAESIp7berwuxRwdQ");
-        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-
-
-       try {
-           ResponseEntity<String> result = restTemplate.exchange("http://localhost:8080/products", HttpMethod.GET, requestEntity, String.class);
-           logger.info("returned data:", result.getBody());
-
-           if (result.getStatusCode() == HttpStatus.OK) {
-               System.out.println("response received");
-               System.out.println(result.getBody());
-           } else {
-               System.out.println("error occurred");
-               System.out.println(result.getStatusCode());
-           }
-       } catch (HttpClientErrorException ex){
-           logger.info("error:", ex);
-       }
+        System.out.println("JSON array to Array objects...");
+        for (Product indiProduct : productList) {
+            System.out.println(indiProduct);
+            if (indiProduct.getProductId() == order.getItem1productId()) {
+                if (indiProduct.getQuantity() == 0) {
+                   order.setItem1Status("Stock not available");
+                } else {
+                    order.setItem1Status("Confirmed");
+                }
+            }
+            if (indiProduct.getProductId() == order.getItem2productId()) {
+                if (indiProduct.getQuantity() == 0) {
+                    order.setItem2Status("Stock not available");
+                } else {
+                    order.setItem2Status("Confimed");
+                }
+            }
+        }
 
         Order newOrder = orderRespository.save(order);
 

@@ -4,8 +4,49 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "order1")
+@Table(name = "orderdb")
 public class Order {
+    public Order(int orderId, Long userId, String type, String status, float subTotal, float tax, float shipping, float total, String promo, float discount, float grandTotal, Date createdAt, Date updatedAt, String content, String firstName, String middleName, String lastName, String mobile, String email, String line1, String line2, String city, String province, String country, int itemId, int productId, float price, int item1itemId, int item1productId, String item1quantity, float item1price, float item1discount, String item1Status, int item2itemId, int item2productId, String item2quantity, float item2price, float item2discount, String item2Status) {
+        this.orderId = orderId;
+        this.userId = userId;
+        this.type = type;
+        this.status = status;
+        this.subTotal = subTotal;
+        this.tax = tax;
+        this.shipping = shipping;
+        this.total = total;
+        this.promo = promo;
+        this.discount = discount;
+        this.grandTotal = grandTotal;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.content = content;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.mobile = mobile;
+        this.email = email;
+        this.line1 = line1;
+        this.line2 = line2;
+        this.city = city;
+        this.province = province;
+        this.country = country;
+        this.itemId = itemId;
+        this.productId = productId;
+        this.price = price;
+        this.item1itemId = item1itemId;
+        this.item1productId = item1productId;
+        this.item1quantity = item1quantity;
+        this.item1price = item1price;
+        this.item1discount = item1discount;
+        this.item1Status = item1Status;
+        this.item2itemId = item2itemId;
+        this.item2productId = item2productId;
+        this.item2quantity = item2quantity;
+        this.item2price = item2price;
+        this.item2discount = item2discount;
+        this.item2Status = item2Status;
+    }
 
     public Order() {
 
@@ -38,7 +79,6 @@ public class Order {
     private String country;
     private int itemId;
     private int productId;
-    private String sku;
     private float price;
 
     private int item1itemId;
@@ -46,53 +86,14 @@ public class Order {
     private String item1quantity;
     private float item1price;
     private float item1discount;
+    private String item1Status;
 
     private int item2itemId;
     private int item2productId;
     private String item2quantity;
     private float item2price;
     private float item2discount;
-
-    public Order(int orderId, Long userId, String type, String status, float subTotal, float tax, float shipping, float total, String promo, float discount, float grandTotal, Date createdAt, Date updatedAt, String content, String firstName, String middleName, String lastName, String mobile, String email, String line1, String line2, String city, String province, String country, int itemId, int productId, String sku, float price, int item1itemId, int item1productId, String item1quantity, float item1price, float item1discount, int item2itemId, int item2productId, String item2quantity, float item2price, float item2discount) {
-        this.orderId = orderId;
-        this.userId = userId;
-        this.type = type;
-        this.status = status;
-        this.subTotal = subTotal;
-        this.tax = tax;
-        this.shipping = shipping;
-        this.total = total;
-        this.promo = promo;
-        this.discount = discount;
-        this.grandTotal = grandTotal;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.content = content;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.mobile = mobile;
-        this.email = email;
-        this.line1 = line1;
-        this.line2 = line2;
-        this.city = city;
-        this.province = province;
-        this.country = country;
-        this.itemId = itemId;
-        this.productId = productId;
-        this.sku = sku;
-        this.price = price;
-        this.item1itemId = item1itemId;
-        this.item1productId = item1productId;
-        this.item1quantity = item1quantity;
-        this.item1price = item1price;
-        this.item1discount = item1discount;
-        this.item2itemId = item2itemId;
-        this.item2productId = item2productId;
-        this.item2quantity = item2quantity;
-        this.item2price = item2price;
-        this.item2discount = item2discount;
-    }
+    private String item2Status;
 
     public int getOrderId() {
         return orderId;
@@ -302,14 +303,6 @@ public class Order {
         this.productId = productId;
     }
 
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
-
     public float getPrice() {
         return price;
     }
@@ -358,6 +351,14 @@ public class Order {
         this.item1discount = item1discount;
     }
 
+    public String getItem1Status() {
+        return item1Status;
+    }
+
+    public void setItem1Status(String item1Status) {
+        this.item1Status = item1Status;
+    }
+
     public int getItem2itemId() {
         return item2itemId;
     }
@@ -396,5 +397,13 @@ public class Order {
 
     public void setItem2discount(float item2discount) {
         this.item2discount = item2discount;
+    }
+
+    public String getItem2Status() {
+        return item2Status;
+    }
+
+    public void setItem2Status(String item2Status) {
+        this.item2Status = item2Status;
     }
 }
